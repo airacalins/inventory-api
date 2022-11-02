@@ -1,3 +1,7 @@
+using Application.Commands.Products;
+using Application.Commands.Products.Interfaces;
+using Application.Contexts;
+using Application.Repositories.ProductRepositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -15,6 +19,13 @@ builder.Services.AddDbContext<DataContext>(opt =>
 });
 
 // Dependency Injection
+builder.Services.AddScoped<IDataContext>(provider => provider.GetService<DataContext>());
+
+// Dependency Injection - Commands
+builder.Services.AddScoped<ICreateProductCommand, CreateProductCommand>();
+
+// Dependency Injection - Repositories
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
