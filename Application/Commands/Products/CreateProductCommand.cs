@@ -8,11 +8,12 @@ namespace Application.Commands.Products
     public class CreateProductCommand : ICreateProductCommand
     {
         private readonly IProductRepository _productRepository;
+
         public CreateProductCommand(IProductRepository productRepository)
         {
             _productRepository = productRepository;
-
         }
+
         public async Task ExecuteCommand(CreateProductDto input)
         {
             _productRepository.Add(new Product

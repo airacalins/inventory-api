@@ -1,5 +1,6 @@
 using Application.Contexts;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Repositories.ProductRepositories
 {
@@ -10,28 +11,23 @@ namespace Application.Repositories.ProductRepositories
         {
             _context = context;
         }
-
-        public void Add(Product item)
+        public async Task<List<Product>> GetAll()
         {
-            _context.Products.Add(item);
+            return await _context.Products.ToListAsync();
         }
-
-        public Task Delete(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Product> Get(Guid id)
         {
             throw new NotImplementedException();
         }
-
-        public Task<List<Product>> GetAll()
+        public void Add(Product item)
+        {
+            _context.Products.Add(item);
+        }
+        public Task Update(Guid id, Product item)
         {
             throw new NotImplementedException();
         }
-
-        public Task Update(Guid id, Product item)
+        public Task Delete(Guid id)
         {
             throw new NotImplementedException();
         }

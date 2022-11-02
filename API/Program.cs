@@ -23,6 +23,7 @@ builder.Services.AddScoped<IDataContext>(provider => provider.GetService<DataCon
 
 // Dependency Injection - Commands
 builder.Services.AddScoped<ICreateProductCommand, CreateProductCommand>();
+builder.Services.AddScoped<IGetProductsCommand, GetProductsCommand>();
 
 // Dependency Injection - Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
