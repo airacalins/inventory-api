@@ -6,6 +6,7 @@ namespace API.Controllers.Products.ViewModels
     {
         public ProductViewModel(ProductDto item)
         {
+            Id = item.Id;
             ImageUrl = item.ImageUrl;
             Name = item.Name;
             Stocks = item.Stocks;
@@ -13,7 +14,7 @@ namespace API.Controllers.Products.ViewModels
             Price = item.Price;
             Cost = item.Cost;
         }
-        public Guid id { get; set; }
+        public Guid Id { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public int Stocks { get; set; }

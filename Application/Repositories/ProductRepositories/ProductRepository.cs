@@ -15,9 +15,11 @@ namespace Application.Repositories.ProductRepositories
         {
             return await _context.Products.ToListAsync();
         }
-        public Task<Product> Get(Guid id)
+        public async Task<Product> Get(Guid id)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.Where(product => product.Id == id).FirstOrDefaultAsync();
+            if (product == null) throw new NullReferenceException();
+            return product;
         }
         public void Add(Product item)
         {

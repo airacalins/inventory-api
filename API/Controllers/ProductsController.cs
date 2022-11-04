@@ -13,9 +13,14 @@ namespace API.Controllers
     {
         private readonly ICreateProductCommand _createProductCommand;
         private readonly IGetProductsCommand _getProductsCommand;
+        private readonly IGetProductByIdCommand _getProductByIdCommand;
 
-        public ProductsController(ICreateProductCommand createProductCommand, IGetProductsCommand getProductsCommand)
+        public ProductsController(
+            ICreateProductCommand createProductCommand,
+            IGetProductsCommand getProductsCommand,
+            IGetProductByIdCommand getProductByIdCommand)
         {
+            _getProductByIdCommand = getProductByIdCommand;
             _getProductsCommand = getProductsCommand;
             _createProductCommand = createProductCommand;
         }
@@ -32,6 +37,13 @@ namespace API.Controllers
         {
             await _createProductCommand.ExecuteCommand(input.ToDto());
             return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] Guid id)
+        {
+            var product = await _getProductByIdCommand.ExecuteCommand(id);
+            return new ProductViewModel(product);
         }
     }
 }
