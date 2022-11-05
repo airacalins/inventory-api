@@ -14,15 +14,18 @@ namespace API.Controllers
         private readonly ICreateProductCommand _createProductCommand;
         private readonly IGetProductsCommand _getProductsCommand;
         private readonly IGetProductByIdCommand _getProductByIdCommand;
+        private readonly IUpdateProductCommand _updateProductCommand;
 
         public ProductsController(
             ICreateProductCommand createProductCommand,
             IGetProductsCommand getProductsCommand,
-            IGetProductByIdCommand getProductByIdCommand)
+            IGetProductByIdCommand getProductByIdCommand,
+            IUpdateProductCommand updateProductCommand)
         {
-            _getProductByIdCommand = getProductByIdCommand;
-            _getProductsCommand = getProductsCommand;
             _createProductCommand = createProductCommand;
+            _getProductsCommand = getProductsCommand;
+            _getProductByIdCommand = getProductByIdCommand;
+            _updateProductCommand = updateProductCommand;
         }
 
         [HttpGet]
@@ -44,6 +47,13 @@ namespace API.Controllers
         {
             var product = await _getProductByIdCommand.ExecuteCommand(id);
             return new ProductViewModel(product);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductViewModel input)
+        {
+            await _updateProductCommand.ExecuteCommand(id, input.ToDto());
+            return Ok();
         }
     }
 }

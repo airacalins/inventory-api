@@ -2,7 +2,7 @@ using Application.Commands.Products.Dtos;
 using Application.Commands.Products.Interfaces;
 using Application.Repositories.ProductRepositories;
 
-namespace Application.Commands
+namespace Application.Commands.Products
 {
     public class GetProductByIdCommand : IGetProductByIdCommand
     {

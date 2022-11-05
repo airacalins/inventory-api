@@ -25,9 +25,20 @@ namespace Application.Repositories.ProductRepositories
         {
             _context.Products.Add(item);
         }
-        public Task Update(Guid id, Product item)
+        public async Task Update(Guid id, Product item)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null) throw new NullReferenceException();
+
+            product.ImageUrl = item.ImageUrl;
+            product.Name = item.Name;
+            product.Stocks = item.Stocks;
+            product.LowStockLevel = item.LowStockLevel;
+            product.Price = item.Price;
+
+            _context.Products.Update(product);
+
         }
         public Task Delete(Guid id)
         {
