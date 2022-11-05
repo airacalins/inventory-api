@@ -21,9 +21,13 @@ namespace Application.Repositories.CompanyRepositories
             throw new NotImplementedException();
         }
 
-        public Task<Company> Get(Guid id)
+        public async Task<Company> Get(Guid id)
         {
-            throw new NotImplementedException();
+            var company = await _context.Companies.FindAsync(id);
+
+            if (company == null) throw new NullReferenceException();
+
+            return company;
         }
 
         public async Task<List<Company>> GetAll()

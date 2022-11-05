@@ -12,13 +12,16 @@ namespace API.Controllers.Companies
     {
         private readonly ICreateCompanyCommand _createCompanyCommand;
         private readonly IGetCompaniesCommand _getCompaniesCommand;
+        private readonly IGetCompanyByIdCommand _getCompanyByIdCommand;
 
         public CompaniesController(
             ICreateCompanyCommand createCompanyCommand,
-            IGetCompaniesCommand getCompaniesCommand)
+            IGetCompaniesCommand getCompaniesCommand,
+            IGetCompanyByIdCommand getCompanyByIdCommand)
         {
             _createCompanyCommand = createCompanyCommand;
             _getCompaniesCommand = getCompaniesCommand;
+            _getCompanyByIdCommand = getCompanyByIdCommand;
         }
 
         [HttpPost]
@@ -33,6 +36,13 @@ namespace API.Controllers.Companies
         {
             var companies = await _getCompaniesCommand.ExecuteCommand();
             return companies.Select(company => new CompanyViewModel(company)).ToList();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<CompanyViewModel> GeyCompanyById([FromRoute] Guid id)
+        {
+            var company = await _getCompanyByIdCommand.ExecuteCommand(id);
+            return new CompanyViewModel(company);
         }
     }
 }
