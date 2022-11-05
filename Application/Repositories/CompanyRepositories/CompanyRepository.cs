@@ -44,9 +44,14 @@ namespace Application.Repositories.CompanyRepositories
             await _context.SaveChangesAsync();
         }
 
-        public Task Delete(Guid id)
+        public async Task Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var company = await _context.Companies.FindAsync(id);
+
+            if (company == null) throw new NullReferenceException();
+
+            _context.Companies.Remove(company);
+            await _context.SaveChangesAsync();
         }
 
 

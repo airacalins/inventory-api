@@ -14,17 +14,20 @@ namespace API.Controllers.Companies
         private readonly IGetCompaniesCommand _getCompaniesCommand;
         private readonly IGetCompanyByIdCommand _getCompanyByIdCommand;
         private readonly IUpdateCompanyCommand _updateCompanyCommand;
+        private readonly IDeleteCompanyCommand _deleteCompanyCommand;
 
         public CompaniesController(
             ICreateCompanyCommand createCompanyCommand,
             IGetCompaniesCommand getCompaniesCommand,
             IGetCompanyByIdCommand getCompanyByIdCommand,
-            IUpdateCompanyCommand updateCompanyCommand)
+            IUpdateCompanyCommand updateCompanyCommand,
+            IDeleteCompanyCommand deleteCompanyCommand)
         {
             _createCompanyCommand = createCompanyCommand;
             _getCompaniesCommand = getCompaniesCommand;
             _getCompanyByIdCommand = getCompanyByIdCommand;
             _updateCompanyCommand = updateCompanyCommand;
+            _deleteCompanyCommand = deleteCompanyCommand;
         }
 
         [HttpPost]
@@ -54,6 +57,13 @@ namespace API.Controllers.Companies
             await _updateCompanyCommand.ExecuteCommand(id, input.ToDto());
             return Ok();
 
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteCompany([FromRoute] Guid id)
+        {
+            await _deleteCompanyCommand.ExecuteCommand(id);
+            return Ok();
         }
     }
 }
