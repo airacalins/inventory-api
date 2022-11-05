@@ -45,6 +45,7 @@ namespace Application.Repositories.ProductRepositories
             var product = await _context.Products.FindAsync(id);
             if (product == null) throw new NullReferenceException();
             _context.Products.Remove(product);
+
         }
 
         public async Task SaveChangesAsync()

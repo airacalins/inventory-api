@@ -1,6 +1,5 @@
 using API.Controllers.Products.InputModels;
 using API.Controllers.Products.ViewModels;
-using Application.Commands.Products.Dtos;
 using Application.Commands.Products.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

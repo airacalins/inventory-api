@@ -1,7 +1,9 @@
-using Application.Commands;
+using Application.Commands.Companies;
+using Application.Commands.Companies.Interfaces;
 using Application.Commands.Products;
 using Application.Commands.Products.Interfaces;
 using Application.Contexts;
+using Application.Repositories.CompanyRepositories;
 using Application.Repositories.ProductRepositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -29,8 +31,11 @@ builder.Services.AddScoped<IGetProductByIdCommand, GetProductByIdCommand>();
 builder.Services.AddScoped<IUpdateProductCommand, UpdateProductCommand>();
 builder.Services.AddScoped<IDeleteProductCommand, DeleteProductCommand>();
 
+builder.Services.AddScoped<ICreateCompanyCommand, CreateCompanyCommand>();
+
 // Dependency Injection - Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 
 var app = builder.Build();
 
