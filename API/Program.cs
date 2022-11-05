@@ -27,6 +27,7 @@ builder.Services.AddScoped<ICreateProductCommand, CreateProductCommand>();
 builder.Services.AddScoped<IGetProductsCommand, GetProductsCommand>();
 builder.Services.AddScoped<IGetProductByIdCommand, GetProductByIdCommand>();
 builder.Services.AddScoped<IUpdateProductCommand, UpdateProductCommand>();
+builder.Services.AddScoped<IDeleteProductCommand, DeleteProductCommand>();
 
 // Dependency Injection - Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
