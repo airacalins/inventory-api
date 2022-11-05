@@ -13,15 +13,18 @@ namespace API.Controllers.Companies
         private readonly ICreateCompanyCommand _createCompanyCommand;
         private readonly IGetCompaniesCommand _getCompaniesCommand;
         private readonly IGetCompanyByIdCommand _getCompanyByIdCommand;
+        private readonly IUpdateCompanyCommand _updateCompanyCommand;
 
         public CompaniesController(
             ICreateCompanyCommand createCompanyCommand,
             IGetCompaniesCommand getCompaniesCommand,
-            IGetCompanyByIdCommand getCompanyByIdCommand)
+            IGetCompanyByIdCommand getCompanyByIdCommand,
+            IUpdateCompanyCommand updateCompanyCommand)
         {
             _createCompanyCommand = createCompanyCommand;
             _getCompaniesCommand = getCompaniesCommand;
             _getCompanyByIdCommand = getCompanyByIdCommand;
+            _updateCompanyCommand = updateCompanyCommand;
         }
 
         [HttpPost]
@@ -43,6 +46,14 @@ namespace API.Controllers.Companies
         {
             var company = await _getCompanyByIdCommand.ExecuteCommand(id);
             return new CompanyViewModel(company);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateCompany([FromRoute] Guid id, [FromBody] UpdateCompanyViewModel input)
+        {
+            await _updateCompanyCommand.ExecuteCommand(id, input.ToDto());
+            return Ok();
+
         }
     }
 }

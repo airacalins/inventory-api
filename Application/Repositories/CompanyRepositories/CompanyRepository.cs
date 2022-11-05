@@ -7,18 +7,15 @@ namespace Application.Repositories.CompanyRepositories
     public class CompanyRepository : ICompanyRepository
     {
         private readonly IDataContext _context;
+
         public CompanyRepository(IDataContext context)
         {
             _context = context;
         }
-        public void Add(Company item)
-        {
-            _context.Companies.Add(item);
-        }
 
-        public Task Delete(Guid id)
+        public async Task<List<Company>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Companies.ToListAsync();
         }
 
         public async Task<Company> Get(Guid id)
@@ -29,20 +26,33 @@ namespace Application.Repositories.CompanyRepositories
 
             return company;
         }
-
-        public async Task<List<Company>> GetAll()
+        public void Add(Company item)
         {
-            return await _context.Companies.ToListAsync();
+            _context.Companies.Add(item);
         }
+
+        public async Task Update(Guid id, Company item)
+        {
+            var company = await _context.Companies.FindAsync(id);
+
+            if (company == null) throw new NullReferenceException();
+
+            company.ImageUrl = item.ImageUrl;
+            company.Name = item.Name;
+
+            _context.Companies.Update(company);
+            await _context.SaveChangesAsync();
+        }
+
+        public Task Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
-        }
-
-        public Task Update(Guid id, Company item)
-        {
-            throw new NotImplementedException();
         }
     }
 }
