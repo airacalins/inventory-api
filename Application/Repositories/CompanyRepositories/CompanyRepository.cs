@@ -1,5 +1,6 @@
 using Application.Contexts;
 using Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Repositories.CompanyRepositories
 {
@@ -25,9 +26,9 @@ namespace Application.Repositories.CompanyRepositories
             throw new NotImplementedException();
         }
 
-        public Task<List<Company>> GetAll()
+        public async Task<List<Company>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Companies.ToListAsync();
         }
 
         public async Task SaveChangesAsync()

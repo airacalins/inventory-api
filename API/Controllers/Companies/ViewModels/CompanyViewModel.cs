@@ -1,10 +1,10 @@
-using Domain;
+using Application.Commands.Companies.Dtos;
 
-namespace Application.Commands.Companies.Dtos
+namespace API.Controllers.Companies.ViewModels
 {
-    public class CompanyDto
+    public class CompanyViewModel
     {
-        public CompanyDto(Company item)
+        public CompanyViewModel(CompanyDto item)
         {
             Id = item.Id;
             ImageUrl = item.ImageUrl;
@@ -13,5 +13,6 @@ namespace Application.Commands.Companies.Dtos
         public Guid Id { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
+
     }
 }

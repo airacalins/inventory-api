@@ -32,6 +32,7 @@ builder.Services.AddScoped<IUpdateProductCommand, UpdateProductCommand>();
 builder.Services.AddScoped<IDeleteProductCommand, DeleteProductCommand>();
 
 builder.Services.AddScoped<ICreateCompanyCommand, CreateCompanyCommand>();
+builder.Services.AddScoped<IGetCompaniesCommand, GetCompaniesCommand>();
 
 // Dependency Injection - Repositories
 builder.Services.AddScoped<IProductRepository, ProductRepository>();

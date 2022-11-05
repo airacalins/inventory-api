@@ -3,7 +3,7 @@ using API.Controllers.Products.ViewModels;
 using Application.Commands.Products.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers
+namespace API.Controllers.Products
 {
     [ApiController]
     [Route("api/[controller]")]
