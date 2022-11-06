@@ -19,7 +19,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Company", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
@@ -34,7 +34,7 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Companies");
                 });
@@ -45,7 +45,7 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("Companyid")
+                    b.Property<Guid>("CompanyId")
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Cost")
@@ -73,16 +73,20 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Companyid");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Domain.Product", b =>
                 {
-                    b.HasOne("Domain.Company", null)
+                    b.HasOne("Domain.Company", "Company")
                         .WithMany("Products")
-                        .HasForeignKey("Companyid");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Domain.Company", b =>

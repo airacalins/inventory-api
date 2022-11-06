@@ -4,6 +4,6 @@ namespace Application.Commands.Products.Interfaces
 {
     public interface IGetProductByIdCommand
     {
-        Task<ProductDto> ExecuteCommand(Guid id);
+        Task<ProductDto> ExecuteCommand(Guid companyId, Guid productId);
     }
 }

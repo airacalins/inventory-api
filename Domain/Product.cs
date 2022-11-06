@@ -14,6 +14,8 @@ namespace Domain
         public int LowStockLevel { get; set; }
         public double Price { get; set; }
         public double Cost { get; set; }
+        public Guid CompanyId { get; set; }
+        public Company Company { get; set; } = default!;
         public DateTime DateCreated { get; set; }
     }
 }

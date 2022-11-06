@@ -4,6 +4,6 @@ namespace Application.Commands.Products.Interfaces
 {
     public interface ICreateProductCommand
     {
-        Task ExecuteCommand(CreateProductDto input);
+        Task ExecuteCommand(Guid companyId, CreateProductDto input);
     }
 }

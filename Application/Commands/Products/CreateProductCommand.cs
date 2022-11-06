@@ -14,7 +14,7 @@ namespace Application.Commands.Products
             _productRepository = productRepository;
         }
 
-        public async Task ExecuteCommand(CreateProductDto input)
+        public async Task ExecuteCommand(Guid companyId, CreateProductDto input)
         {
             _productRepository.Add(new Product
             {
@@ -24,6 +24,7 @@ namespace Application.Commands.Products
                 LowStockLevel = input.LowStockLevel,
                 Price = input.Price,
                 Cost = input.Cost,
+                CompanyId = companyId,
                 DateCreated = DateTime.UtcNow,
             });
 

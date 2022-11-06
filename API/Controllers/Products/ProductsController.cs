@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers.Products
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/company/{companyId}/[controller]")]
 
     public class ProductsController : ControllerBase
     {
@@ -31,23 +31,23 @@ namespace API.Controllers.Products
         }
 
         [HttpGet]
-        public async Task<List<ProductViewModel>> GetProducts()
+        public async Task<List<ProductViewModel>> GetProducts([FromRoute] Guid companyId)
         {
-            var products = await _getProductsCommand.ExecuteCommand();
+            var products = await _getProductsCommand.ExecuteCommand(companyId);
             return products.Select(product => new ProductViewModel(product)).ToList();
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateProduct([FromBody] CreateProductInputModel input)
+        public async Task<ActionResult> CreateProduct([FromRoute] Guid companyId, [FromBody] CreateProductInputModel input)
         {
-            await _createProductCommand.ExecuteCommand(input.ToDto());
+            await _createProductCommand.ExecuteCommand(companyId, input.ToDto());
             return Ok();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] Guid id)
+        public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] Guid companyId, [FromRoute] Guid productId)
         {
-            var product = await _getProductByIdCommand.ExecuteCommand(id);
+            var product = await _getProductByIdCommand.ExecuteCommand(companyId, productId);
             return new ProductViewModel(product);
         }
 

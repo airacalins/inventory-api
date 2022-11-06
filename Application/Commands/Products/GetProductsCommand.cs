@@ -12,9 +12,9 @@ namespace Application.Commands.Products
             _productRepository = productRepository;
 
         }
-        public async Task<List<ProductDto>> ExecuteCommand()
+        public async Task<List<ProductDto>> ExecuteCommand(Guid companyId)
         {
-            var products = await _productRepository.GetAll();
+            var products = await _productRepository.GetAllByCompanyId(companyId);
             return products.Select(product => new ProductDto(product)).ToList();
         }
     }
