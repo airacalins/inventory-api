@@ -45,9 +45,9 @@ namespace API.Controllers.Products
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] Guid companyId, [FromRoute] Guid productId)
+        public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] Guid companyId, [FromRoute] Guid id)
         {
-            var product = await _getProductByIdCommand.ExecuteCommand(companyId, productId);
+            var product = await _getProductByIdCommand.ExecuteCommand(companyId, id);
             return new ProductViewModel(product);
         }
 
